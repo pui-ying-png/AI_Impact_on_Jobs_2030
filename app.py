@@ -19,15 +19,19 @@ industry = st.selectbox(
 # Filter by industry
 if industry != "All":
     df = df[df["Industry"] == industry]
-
+    
 # ------------------------------------
 # Interactive Feature 2: AI Risk Slider
 # ------------------------------------
+min_risk = float(df["AI_Replacement_Risk"].min())
+max_risk = float(df["AI_Replacement_Risk"].max())
+
 risk = st.slider(
     "Maximum AI Replacement Risk",
-    min_value=0,
-    max_value=100,
-    value=100
+    min_value=min_risk,
+    max_value=max_risk,
+    value=max_risk,
+    step=0.01
 )
 
 # Filter by AI Replacement Risk
