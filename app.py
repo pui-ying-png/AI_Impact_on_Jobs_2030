@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 # Page title
 st.title("AI Impact on Jobs 2030 Dashboard")
 
+st.write("✅ This is the NEW version of app.py")
+
 # Load dataset
 df = pd.read_csv("AI_Impact_on_Jobs_2030.csv")
 
