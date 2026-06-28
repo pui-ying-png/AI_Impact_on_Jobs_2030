@@ -3,7 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Page title
-st.title("AI Impact on Jobs 2030 Dashboard")
+st.title("AI_Impact_on_Jobs_2030_Dashboard")
+st.write("🚨 THIS IS THE NEW VERSION")
 
 st.write("✅ This is the NEW version of app.py")
 
