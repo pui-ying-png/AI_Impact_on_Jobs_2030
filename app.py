@@ -4,9 +4,6 @@ import matplotlib.pyplot as plt
 
 # Page title
 st.title("AI_Impact_on_Jobs_2030_Dashboard")
-st.write("🚨 THIS IS THE NEW VERSION")
-
-st.write("✅ This is the NEW version of app.py")
 
 # Load dataset
 df = pd.read_csv("AI_Impact_on_Jobs_2030.csv")
@@ -19,10 +16,9 @@ industry = st.selectbox(
     ["All"] + sorted(df["Industry"].unique().tolist())
 )
 
-# Filter by industry
 if industry != "All":
     df = df[df["Industry"] == industry]
-    
+
 # ------------------------------------
 # Interactive Feature 2: AI Risk Slider
 # ------------------------------------
@@ -37,7 +33,6 @@ risk = st.slider(
     step=0.01
 )
 
-# Filter by AI Replacement Risk
 df = df[df["AI_Replacement_Risk"] <= risk]
 
 # Display dataset
@@ -53,7 +48,6 @@ fig, ax = plt.subplots()
 ax.hist(df["AI_Replacement_Risk"], bins=20)
 ax.set_xlabel("AI Replacement Risk")
 ax.set_ylabel("Frequency")
-
 st.pyplot(fig)
 
 # ------------------------------------
@@ -65,10 +59,8 @@ industry_counts = df["Industry"].value_counts()
 
 fig, ax = plt.subplots(figsize=(8,5))
 industry_counts.plot(kind="bar", ax=ax)
-
 ax.set_xlabel("Industry")
 ax.set_ylabel("Count")
-
 st.pyplot(fig)
 
 # ------------------------------------
@@ -77,13 +69,10 @@ st.pyplot(fig)
 st.header("3. AI Replacement Risk vs Future Demand Score")
 
 fig, ax = plt.subplots()
-
 ax.scatter(
     df["AI_Replacement_Risk"],
     df["Future_Demand_Score"]
 )
-
 ax.set_xlabel("AI Replacement Risk")
 ax.set_ylabel("Future Demand Score")
-
 st.pyplot(fig)
