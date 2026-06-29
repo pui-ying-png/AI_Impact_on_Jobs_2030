@@ -204,6 +204,9 @@ st.write("Model Input:")
 st.dataframe(input_data)
 prediction = model.predict(input_data)[0]
 
+# Keep prediction between 0 and 1
+prediction = max(0, min(1, prediction))
+
 st.header("Predicted AI Replacement Risk")
 
 st.metric(
