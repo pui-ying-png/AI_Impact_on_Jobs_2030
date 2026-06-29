@@ -215,3 +215,44 @@ elif prediction < 0.70:
     st.warning("⚠️ Moderate AI replacement risk")
 else:
     st.error("🚨 High AI replacement risk")
+
+st.header("Distribution of AI Replacement Risk")
+
+fig, ax = plt.subplots(figsize=(8,4))
+
+ax.hist(df["AI_Replacement_Risk"], bins=20)
+
+ax.set_xlabel("AI Replacement Risk")
+ax.set_ylabel("Number of Jobs")
+
+st.pyplot(fig)
+
+st.header("Jobs by Industry")
+
+industry_counts = df["Industry"].value_counts()
+
+fig, ax = plt.subplots(figsize=(10,5))
+
+industry_counts.plot(
+    kind="bar",
+    ax=ax
+)
+
+ax.set_xlabel("Industry")
+ax.set_ylabel("Number of Jobs")
+
+st.pyplot(fig)
+
+st.header("Average Salary vs AI Replacement Risk")
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+ax.scatter(
+    df["Average_Salary_USD"],
+    df["AI_Replacement_Risk"]
+)
+
+ax.set_xlabel("Average Salary (USD)")
+ax.set_ylabel("AI Replacement Risk")
+
+st.pyplot(fig)
