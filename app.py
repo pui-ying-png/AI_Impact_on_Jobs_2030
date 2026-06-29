@@ -200,9 +200,10 @@ input_data = pd.DataFrame({
 })
 
 # Prediction
-st.write("Model Input:")
-st.dataframe(input_data)
-st.subheader("Debug: Model Input")
+st.write("Input columns:")
+st.write(input_data.columns.tolist())
+
+st.write("Model input:")
 st.dataframe(input_data)
 
 prediction = model.predict(input_data)[0]
