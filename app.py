@@ -206,7 +206,18 @@ st.write(input_data.columns.tolist())
 st.write("Model input:")
 st.dataframe(input_data)
 
+st.subheader("Debug Information")
+
+st.write("Input DataFrame")
+st.dataframe(input_data)
+
+st.write("Data types")
+st.write(input_data.dtypes)
+
 prediction = model.predict(input_data)[0]
+
+st.write("Raw prediction")
+st.write(prediction)
 
 st.header("Predicted AI Replacement Risk")
 
