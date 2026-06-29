@@ -200,6 +200,8 @@ input_data = pd.DataFrame({
 })
 
 # Prediction
+st.write("Model Input:")
+st.dataframe(input_data)
 prediction = model.predict(input_data)[0]
 
 st.header("Predicted AI Replacement Risk")
