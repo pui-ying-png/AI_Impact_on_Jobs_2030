@@ -202,10 +202,10 @@ input_data = pd.DataFrame({
 # Prediction
 st.write("Model Input:")
 st.dataframe(input_data)
-prediction = model.predict(input_data)[0]
+st.subheader("Debug: Model Input")
+st.dataframe(input_data)
 
-# Keep prediction between 0 and 1
-prediction = max(0, min(1, prediction))
+prediction = model.predict(input_data)[0]
 
 st.header("Predicted AI Replacement Risk")
 
