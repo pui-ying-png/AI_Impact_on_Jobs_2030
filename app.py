@@ -321,3 +321,48 @@ with col2:
     st.write(
         "Monitors data quality by checking for missing values in the dataset."
     )
+
+# ==================================================
+# DATA DRIFT ANALYSIS
+# ==================================================
+
+st.header("Data Drift Analysis")
+
+# Baseline statistics (training dataset)
+baseline_mean = df["AI_Replacement_Risk"].mean()
+
+# Simulated new dataset (assume AI risk has increased slightly)
+new_data = df.copy()
+new_data["AI_Replacement_Risk"] = new_data["AI_Replacement_Risk"] + 0.05
+
+current_mean = new_data["AI_Replacement_Risk"].mean()
+
+drift = current_mean - baseline_mean
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric("Baseline Mean", f"{baseline_mean:.3f}")
+col2.metric("Current Mean", f"{current_mean:.3f}")
+col3.metric("Mean Drift", f"{drift:.3f}")
+
+fig, ax = plt.subplots(figsize=(8,4))
+
+ax.hist(
+    df["AI_Replacement_Risk"],
+    bins=20,
+    alpha=0.6,
+    label="Baseline"
+)
+
+ax.hist(
+    new_data["AI_Replacement_Risk"],
+    bins=20,
+    alpha=0.6,
+    label="Current"
+)
+
+ax.set_xlabel("AI Replacement Risk")
+ax.set_ylabel("Frequency")
+ax.legend()
+
+st.pyplot(fig)
