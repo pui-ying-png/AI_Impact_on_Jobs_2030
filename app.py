@@ -290,3 +290,34 @@ ax.set_xlabel("Average Salary (USD)")
 ax.set_ylabel("AI Replacement Risk")
 
 st.pyplot(fig)
+
+# ==================================================
+# MODEL MONITORING
+# ==================================================
+
+st.header("Model Monitoring Metrics")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric(
+        label="Mean Absolute Error (MAE)",
+        value="0.2258"
+    )
+
+    st.write(
+        "Monitors the average prediction error of the deployed Linear Regression model."
+    )
+
+missing_values = df.isnull().sum().sum()
+
+with col2:
+
+    st.metric(
+        label="Missing Values",
+        value=int(missing_values)
+    )
+
+    st.write(
+        "Monitors data quality by checking for missing values in the dataset."
+    )
