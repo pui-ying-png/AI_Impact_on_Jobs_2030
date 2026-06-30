@@ -27,6 +27,36 @@ def load_data():
 
 df = load_data()
 
+# ==========================================
+# Dashboard Filters
+# ==========================================
+
+st.sidebar.header("Dashboard Filters")
+
+selected_industry = st.sidebar.selectbox(
+    "Filter by Industry",
+    ["All"] + sorted(df["Industry"].unique().tolist())
+)
+
+risk_filter = st.sidebar.slider(
+    "Maximum AI Replacement Risk",
+    min_value=float(df["AI_Replacement_Risk"].min()),
+    max_value=float(df["AI_Replacement_Risk"].max()),
+    value=float(df["AI_Replacement_Risk"].max()),
+    step=0.01
+)
+
+filtered_df = df.copy()
+
+if selected_industry != "All":
+    filtered_df = filtered_df[
+        filtered_df["Industry"] == selected_industry
+    ]
+
+filtered_df = filtered_df[
+    filtered_df["AI_Replacement_Risk"] <= risk_filter
+]
+
 # ==================================================
 # LOAD TRAINED MODEL
 # ==================================================
@@ -200,24 +230,7 @@ input_data = pd.DataFrame({
 })
 
 # Prediction
-st.write("Input columns:")
-st.write(input_data.columns.tolist())
-
-st.write("Model input:")
-st.dataframe(input_data)
-
-st.subheader("Debug Information")
-
-st.write("Input DataFrame")
-st.dataframe(input_data)
-
-st.write("Data types")
-st.write(input_data.dtypes)
-
 prediction = model.predict(input_data)[0]
-
-st.write("Raw prediction")
-st.write(prediction)
 
 st.header("Predicted AI Replacement Risk")
 
@@ -233,11 +246,15 @@ elif prediction < 0.70:
 else:
     st.error("🚨 High AI replacement risk")
 
+st.header("Filtered Dataset")
+
+st.dataframe(filtered_df)
+
 st.header("Distribution of AI Replacement Risk")
 
 fig, ax = plt.subplots(figsize=(8,4))
 
-ax.hist(df["AI_Replacement_Risk"], bins=20)
+ax.hist(filtered_df["AI_Replacement_Risk"], bins=20)
 
 ax.set_xlabel("AI Replacement Risk")
 ax.set_ylabel("Number of Jobs")
@@ -246,7 +263,7 @@ st.pyplot(fig)
 
 st.header("Jobs by Industry")
 
-industry_counts = df["Industry"].value_counts()
+industry_counts = filtered_df["Industry"].value_counts()
 
 fig, ax = plt.subplots(figsize=(10,5))
 
@@ -265,8 +282,8 @@ st.header("Average Salary vs AI Replacement Risk")
 fig, ax = plt.subplots(figsize=(8,5))
 
 ax.scatter(
-    df["Average_Salary_USD"],
-    df["AI_Replacement_Risk"]
+    filtered_df["Average_Salary_USD"],
+    filtered_df["AI_Replacement_Risk"]
 )
 
 ax.set_xlabel("Average Salary (USD)")
